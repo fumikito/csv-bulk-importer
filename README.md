@@ -20,7 +20,7 @@ $importer->register_callback('_my_func');
  * コールバック関数は以下の通りです。
  * 
  * @param array $row CSVの行が連想配列で渡ります。キーはヘッダー名です。
- * @param int
+ * @param int $index CSVの何行目か。ヘッダーが1行目です。
  */
 function _my_func($row, $index){
 	// 何か登録したりする
@@ -31,4 +31,9 @@ function _my_func($row, $index){
 	));
 }
 ```
+
+# CSVの仕様
+
+* 1行目はヘッダーです。このヘッダーがコールバック関数に渡される配列のキー名となります。
+* Excelで作成したCSVを想定しています。Shift_JISで改行コードはCRLFだと想定しています。
 
