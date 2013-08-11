@@ -75,7 +75,7 @@ jQuery(document).ready(function($){
 			// 選択イベントにバインド
 			csvMediaFrame.on('select', function(){
 				var csv = csvMediaFrame.state().get('selection').first().toJSON();
-				$('#csv-name code').text(csv.filename).
+				$('#csv-name code').empty().text(csv.filename).
 						prepend('<img src="' + csv.icon + '" alt="' + csv.filename + '" width="32" height="32" /><br />');
 				$('#csv').val(csv.id);
 				$('p.csv-selector').addClass('active').effect('highlight');
