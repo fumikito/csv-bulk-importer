@@ -23,7 +23,14 @@
 				<td>
 					<?php if(empty($this->csv_files)): ?>
 						<?php if(function_exists('wp_enqueue_media')):?>
-					
+							<p class="csv-selector">
+								<input type="hidden" id="csv" name="csv" value="" />
+								<span class="csv-indicator" id="csv-name">
+									<code></code>
+								</span>
+								<span class="csv-indicator" id="csv-invalid">CSVが選択されていません</span>
+								<button id="csv-select-button">CSVを選択</button>
+							</p><!-- //.csv-selector -->
 						<?php
 							else:
 								//バージョンが古いので、全部取得する

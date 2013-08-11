@@ -11,7 +11,7 @@ if(!class_exists('Hametuha_CSV_Bulk_Importer')){
 	 * @property-write string $title ページタイトル
 	 * @property-write strign $menu_title メニュータイトル
 	 * @property-write string $description 設定されていれば出力される
-	 * @property-write int $step 一回あたりの処理数。メモリなどが足りない場合は、この数を減らす。初期値100。
+	 * @property-write int $step 一回あたりの処理行数。メモリなどが足りない場合は、この数を減らす。初期値100。
 	 */
 	class Hametuha_CSV_Bulk_Importer{
 
@@ -213,7 +213,11 @@ if(!class_exists('Hametuha_CSV_Bulk_Importer')){
 				wp_enqueue_script(
 					$this->name.'-helper',
 					$this->root_url.'/ajax.js',
-					array('jquery-form', 'jquery-effects-highlight'), $this->version);
+					array('jquery-form', 'jquery-effects-highlight'),
+					$this->version
+				);
+				// CSS
+				wp_enqueue_style($this->name.'-style', $this->root_url.'/style.css', null, $this->version);
 			}
 		}
 
@@ -230,7 +234,7 @@ if(!class_exists('Hametuha_CSV_Bulk_Importer')){
 		
 		/**
 		 * CSVファイルを設定する。しない場合、メディアから選ぶ
-		 * @param type $csvs
+		 * @param array $csvs
 		 */
 		public function set_csv($csvs){
 			$this->csv_files = (array)$csvs;
@@ -241,7 +245,7 @@ if(!class_exists('Hametuha_CSV_Bulk_Importer')){
 		/**
 		 * コールバックを登録する
 		 * 
-		 * @param type $callback
+		 * @param callback $callback
 		 */
 		public function register_callback($callback){
 			if(is_callable($callback)){

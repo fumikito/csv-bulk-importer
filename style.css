@@ -1,0 +1,18 @@
+
+#csv-name{
+	display: none;
+}
+#csv-name code{
+	display: inline-block;
+	text-align: center;
+	padding: 5px;
+}
+#csv-name code img{
+	
+}
+.active #csv-name{
+	display: inline;
+}
+.active #csv-invalid{
+	display: none;
+}

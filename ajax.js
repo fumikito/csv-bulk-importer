@@ -1,4 +1,6 @@
 jQuery(document).ready(function($){
+	
+	// CSVをインポートする
 	$('.hametuha-bulk-form').submit(function(e){
 		e.preventDefault();
 		var form = $(this),
@@ -45,4 +47,41 @@ jQuery(document).ready(function($){
 			};
 		form.ajaxSubmit(initOption);
 	});
+	
+	// CSVを選択する
+	if($('.csv-selector').length){
+		// MediaFrameを初期化
+		var csvMediaFrame;
+		$('#csv-select-button').click(function(e){
+			e.preventDefault();
+			// すでに初期化済みなら再利用
+			if(csvMediaFrame){
+				csvMediaFrame.open();
+				return;
+			}
+			// メディアフレームを作成
+			csvMediaFrame = wp.media.frames.csvMediaFrame = wp.media({
+				className: 'media-frame csv-media-frame',
+				frame: 'select',
+				multiple: false,
+				title: 'インポートするCSVを選択してください',
+				library:{
+					type: 'text/csv'
+				},
+				button:{
+					text: '指定したCSVを選択'
+				}
+			});
+			// 選択イベントにバインド
+			csvMediaFrame.on('select', function(){
+				var csv = csvMediaFrame.state().get('selection').first().toJSON();
+				$('#csv-name code').text(csv.filename).
+						prepend('<img src="' + csv.icon + '" alt="' + csv.filename + '" width="32" height="32" /><br />');
+				$('#csv').val(csv.id);
+				$('p.csv-selector').addClass('active').effect('highlight');
+			});
+			// Media Frameをオープン
+			csvMediaFrame.open();
+		});
+	}
 });
